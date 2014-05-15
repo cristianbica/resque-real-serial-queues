@@ -1,4 +1,4 @@
-# Resque::Real::Serial::Queues
+# Resque::Plugins::RealSerialQueues
 
 TODO: Write a gem description
 
@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+This gem is under active development and may not work at all (yet)
 
 ## Contributing
 

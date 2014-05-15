@@ -3,15 +3,15 @@ require 'resque' unless defined?(Resque)
 require "resque/plugins/version"
 
 # Modifications to resque code go here
-module Resque
-  class Job
+module Resque # :nodoc:
+  class Job # :nodoc:
 
     # Given a queue name and a potential job (the one we are considering popping off the queue)
     # determine whether there is a worker currently working on a job with the same queue, class, and args
     # return true if we find an identical job, false if not
     def self.same_job_in_same_queue_currently_being_run(queue, job)
       return false unless job
-      puts "---- now checking for already running jobs in queue #{queue} of class #{job['class']} ---"
+
       job_class = job['class']
       job_args  = job['args']
 
@@ -28,13 +28,17 @@ module Resque
 
         queue_matches = processing_queue == queue
         class_matches = processing_class == job_class
-        
-        processing_args.each_with_index do |arg, i|
-          next unless arg && arg[i]
-          args_match = arg == job_args[i]
-          break if args_match
+        args_match    = (processing_args.nil? && job_args.nil?) ||
+                        (processing_args.length == 0 && job_args.length == 0)
+
+        unless args_match
+          processing_args.each_with_index do |arg, i|
+            next unless arg && arg[i]
+            args_match = arg == job_args[i]
+            break if args_match
+          end
         end
-        puts "found a matching job, aborting reserve!" if queue_matches && class_matches && args_match
+
         return true if queue_matches && class_matches && args_match
       end
 
@@ -45,7 +49,7 @@ module Resque
     # if any jobs are available. If not, returns nil.
     # This is a resque method overridden to first check
     # if the queue item has an identical job currently being worked on
-    def self.reserve(queue)
+    def self.reserve(queue) # :nodoc:
       # Hack.  Find a way not to do this
       return if queue == '*'
       potential_job = Resque.peek(queue)

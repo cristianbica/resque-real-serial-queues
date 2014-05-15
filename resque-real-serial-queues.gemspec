@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'resque/real/serial/queues/version'
+require 'resque/plugins/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "resque-real-serial-queues"
-  spec.version       = Resque::Real::Serial::Queues::VERSION
+  spec.version       = Resque::Plugins::RealSerialQueues::VERSION
   spec.authors       = ["Javier Evans"]
   spec.email         = ["evans.javier@gmail.com"]
   spec.summary       = %q{Resque plugin to allow queues to be processed serially without modifying the queue order}

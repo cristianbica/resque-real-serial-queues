@@ -1,0 +1,1 @@
+require 'resque/plugins/real_serial_queues'

@@ -1,12 +1,14 @@
 # Resque::Plugins::RealSerialQueues
 
-This plugin modifies [Resque's](https://github.com/resque/resque) job reservation process to first check if there is another job 
+This plugin modifies [resque](https://github.com/resque/resque)'s' job reservation process to first check if there is another job 
 from the same queue as the potential job currently being processed by one of your workers and tells the worker to check again after its sleep cycle.
 
 It is primarily meant to be used to queue long running background jobs across multiple queues in conjunction with something like [resque-scheduler](https://github.com/resque/resque-scheduler)
 
 A key difference between this and [resque-lonely_job](https://github.com/wallace/resque-lonely_job) is that the queue is not touched when we check to see if we can process the job.  However, because we must check all the workers
 currently working on the system this plugin may not scale well to large numbers of workers.
+
+This gem is under active development - so please use caution if your jobs are responsible for controlling rocket ships or providing food and shelter to young children.
 
 ## Installation
 
